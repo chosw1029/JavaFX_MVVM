@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="rootNode" prefHeight="80.0" prefWidth="400.0" style="-fx-border-color: #BBEFC4; -fx-border-radius: 12; -fx-background-color: #E8F9F1; -fx-background-radius: 12;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nextus.mvvmfx.ui.alertmgmt.notification.TrayNotificationView">
+    <children>
+      <VBox alignment="CENTER" layoutX="48.0" layoutY="11.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
+         <children>
+             <ImageView fx:id="imageIcon" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true">
+                 <Image url="@/images/icons8_ok_52px.png" />
+             </ImageView>
+         </children>
+      </VBox>
+        <Label fx:id="lblTitle" layoutX="126.0" layoutY="9.0" styleClass="customLabel_16_Bold" text="test" textFill="#1bc921" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Label>
+      <VBox alignment="CENTER" layoutX="323.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
+         <children>
+              <ImageView fx:id="closeButton" fitHeight="16.0" fitWidth="16.0" onMouseClicked="#dismiss" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@/images/icons8_delete_24px.png" />
+                  </image>
+              </ImageView>
+         </children>
+      </VBox>
+    </children>
+    <stylesheets>
+        <URL value="@/css/theme.css" />
+        <URL value="@/css/label.css" />
+    </stylesheets>
+</AnchorPane>

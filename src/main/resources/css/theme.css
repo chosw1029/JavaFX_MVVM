@@ -1,0 +1,28 @@
+
+
+/********************************************************************************************************************
+    System Button CSS
+*********************************************************************************************************************/
+.miniButtonBox {
+    -fx-background-color: #3A444A;
+}
+
+.miniButtonBox:hover {
+    -fx-background-color: #546E7A;
+}
+
+.maxButtonBox {
+    -fx-background-color: #3A444A;
+}
+
+.maxButtonBox:hover {
+    -fx-background-color: #546E7A;
+}
+
+.closeButtonBox {
+    -fx-background-color: #3A444A;
+}
+
+.closeButtonBox:hover {
+    -fx-background-color: #E81123;
+}

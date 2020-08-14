@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="root" prefHeight="25.0" style="-fx-background-color: #3A444A;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nextus.mvvmfx.ui.topbar.TopBarView">
+    <children>
+        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-radius: 0 8 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox alignment="CENTER" onMouseClicked="#minimizeButtonPressed" prefWidth="30.0" styleClass="miniButtonBox">
+                    <children>
+                        <ImageView fx:id="miniButton" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/images/icons8_minus_24px.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="180.0" layoutY="10.0" onMouseClicked="#restoreAndMaximizeButtonPressed" prefWidth="30.0" styleClass="maxButtonBox">
+                    <children>
+                        <ImageView fx:id="maxButton" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/images/restore.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </VBox>
+                <VBox fx:id="closeBox" alignment="CENTER" layoutX="150.0" layoutY="10.0" onMouseClicked="#closeButtonPressed" prefWidth="30.0" styleClass="closeButtonBox">
+                    <children>
+                        <ImageView fx:id="closeButton" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/images/icons8_delete_24px.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

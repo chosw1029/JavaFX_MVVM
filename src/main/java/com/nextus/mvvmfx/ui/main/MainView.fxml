@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import org.controlsfx.control.NotificationPane?>
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nextus.mvvmfx.ui.main.MainView">
+    <top>
+        <fx:include source="../topbar/TopBarView.fxml" />
+    </top>
+    <center>
+       <NotificationPane fx:id="notificationPane">
+           <content>
+               <AnchorPane BorderPane.alignment="CENTER">
+                   <BorderPane.margin>
+                       <Insets />
+                   </BorderPane.margin>
+                   <children>
+                       <AnchorPane prefHeight="480" prefWidth="640">
+                           <children>
+                               <Button layoutX="95.0" layoutY="72.0" mnemonicParsing="false" onMouseClicked="#showSuccessBottomRightAlert" text="Success" />
+                               <Button layoutX="95.0" layoutY="119.0" mnemonicParsing="false" onMouseClicked="#showInfoBottomRightAlert" text="Info" />
+                               <Button layoutX="95.0" layoutY="164.0" mnemonicParsing="false" onMouseClicked="#showWarningBottomRightAlert" text="Warn" />
+                           </children>
+                       </AnchorPane>
+                   </children>
+               </AnchorPane>
+           </content>
+       </NotificationPane>
+
+   </center>
+</BorderPane>
