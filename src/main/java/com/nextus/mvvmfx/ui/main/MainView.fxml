@@ -7,7 +7,7 @@
 <?import org.controlsfx.control.NotificationPane?>
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nextus.mvvmfx.ui.main.MainView">
     <top>
-        <fx:include source="../topbar/TopBarView.fxml" />
+        <fx:include source="../topbar/TopBarView.fxml" fx:id="topBarView"/>
     </top>
     <center>
        <NotificationPane fx:id="notificationPane">

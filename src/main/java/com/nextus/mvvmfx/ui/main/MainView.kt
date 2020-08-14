@@ -1,12 +1,17 @@
 package com.nextus.mvvmfx.ui.main
 
 import com.nextus.mvvmfx.ui.base.BaseView
+import com.nextus.mvvmfx.ui.custom.BorderlessScene
+import com.nextus.mvvmfx.ui.topbar.TopBarView
 import javafx.fxml.FXML
 
 class MainView : BaseView<MainViewModel>() {
 
-    override fun initialize() {
+    @FXML
+    lateinit var topBarViewController: TopBarView
 
+    override fun initialize() {
+        //(stage.scene as BorderlessScene).setMoveControl(topBarViewController.root)
     }
 
     @FXML

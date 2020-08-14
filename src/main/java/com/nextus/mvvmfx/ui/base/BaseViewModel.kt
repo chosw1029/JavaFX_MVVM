@@ -19,7 +19,7 @@ abstract class BaseViewModel : ViewModel, CoroutineScope {
     lateinit var fxScope: FxScope
 
     var tabID = "" // Tab ID
-    var stage: Stage? = null
+    lateinit var stage: Stage
 
     val progressVisibility = SimpleBooleanProperty(false)
 
@@ -30,7 +30,7 @@ abstract class BaseViewModel : ViewModel, CoroutineScope {
 
     abstract fun initialize()
 
-    fun getViewModelStage(): Stage = stage!!
+    fun getViewModelStage(): Stage = stage
 
     fun setPopupMode(stage: Stage) {
         isPopupMode = true

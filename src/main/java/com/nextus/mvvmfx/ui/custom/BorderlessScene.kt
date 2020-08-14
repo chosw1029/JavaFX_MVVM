@@ -1,152 +1,208 @@
-package com.nextus.mvvmfx.ui.custom;
+package com.nextus.mvvmfx.ui.custom
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import com.nextus.mvvmfx.scope.FxScope
+import com.nextus.mvvmfx.scope.ScreenScope
+import com.nextus.mvvmfx.ui.custom.borderless.BorderlessView
+import com.nextus.mvvmfx.ui.custom.borderless.BorderlessViewModel
+import de.saxsys.mvvmfx.FluentViewLoader
+import de.saxsys.mvvmfx.ViewTuple
+import javafx.beans.property.BooleanProperty
+import javafx.scene.Node
+import javafx.scene.Parent
+import javafx.scene.Scene
+import javafx.scene.layout.AnchorPane
+import javafx.scene.layout.Pane
+import javafx.stage.Stage
+import javafx.stage.StageStyle
+import java.io.IOException
 
 /**
- * Undecorated JavaFX Scene with implemented move, resize, minimise, maximise and Windows Aero Snap controls.
- * 
+ * Undecorated JavaFX Scene with implemented move, resize, minimize, maximize and Aero Snap.
+ *
+ *
  * Usage:
+ *
  * <pre>
- * {@code
- * // Constructor using your primary stage and the root Parent of your content.
- * BorderlessScene scene = new BorderlessScene(yourPrimaryStage, yourParent);
- * yourPrimaryStage.setScene(scene); // Set the scene to your stage and you're done!
- * 
- * // Maximise (on/off) and minimise the application:
- * scene.maximise();
- * scene.minimise();
- * 
- * // To move the window around by pressing a node:
- * scene.setMoveControl(yourNode);
- * 
- * // To disable resize:
- * scene.setResizable(false);
- * 
- * // To switch the content during runtime:
- * scene.setContent(yourNewParent);
- * 
- * // Check if maximised:
- * Boolean bool = scene.isMaximised();
- * 
- * // Get windowed size and position:
- * scene.getWindowedSize();
- * scene.getWindowedPosition();
+ * {
+ * &#64;code
+ * //add the code here
  * }
- * </pre>
- * 
+</pre> *
+ *
  * @author Nicolas Senet-Larson
+ * @author GOXR3PLUS STUDIO
  * @version 1.0
  */
-public class BorderlessScene extends Scene {
-	private BorderlessController controller;
-	private AnchorPane root;
-	private Stage primaryStage;
-	
-	/**
-	 * The constructor.
-	 * @param primaryStage your stage.
-	 * @param root the root Parent of your content.
-	 */
-	public BorderlessScene(Stage primaryStage, Parent root) {
-		super(new Pane());
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/Borderless.fxml"));
-			this.root = ((AnchorPane) loader.load());
+class BorderlessScene(val stage: Stage, stageStyle: StageStyle, sceneRoot: Parent, fxScope: FxScope, screenScope: ScreenScope) : Scene(Pane()) {
 
-			setRoot(this.root);
-			setContent(root);
+    private var root = FluentViewLoader.fxmlView(BorderlessView::class.java).providedScopes(fxScope, screenScope).load()
 
-			//this.controller = ((BorderlessController) loader.getController());
-			//this.controller.setMainApp(primaryStage);
+    /**
+     * True if the stage is maximized or false if not
+     *
+     * @return True if the stage is maximized or false if not
+     */
+    val isMaximized: Boolean
+        get() = root.viewModel.maximized.get()
 
-			//primaryStage.initStyle(StageStyle.UNDECORATED);
-			this.primaryStage = primaryStage;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * True if the stage is resizable or false if not
+     *
+     * @return True if the stage is resizable or false if not
+     */
+    /**
+     * Disable/enable the resizing of your stage. Enabled by default.
+     *
+     * @param bool false to disable, true to enable.
+     */
+    var isResizable: Boolean
+        get() = root.viewModel.resizable.get()
+        set(bool) {
+            root.viewModel.resizable.set(bool)
+        }
 
-	/**
-	 * Change the content of the scene.
-	 * @param content the root Parent of your new content.
-	 */
-	public void setContent(Parent content) {
-		this.root.getChildren().remove(0);
-		this.root.getChildren().add(0, content);
-		AnchorPane.setLeftAnchor(content, 0.0D);
-		AnchorPane.setTopAnchor(content, 0.0D);
-		AnchorPane.setRightAnchor(content, 0.0D);
-		AnchorPane.setBottomAnchor(content, 0.0D);
-	}
+    /**
+     * True if Aero Snap is enabled or false if not
+     *
+     * @return True if Aero Snap is enabled or false if not
+     */
+    /**
+     * Disable/enable the Aero Snap of your stage. Enabled by default.
+     *
+     * @param bool false to disable, true to enable.
+     */
+    var isSnapEnabled: Boolean
+        get() = root.viewModel.snap.get()
+        set(bool) {
+            root.viewModel.snap.set(bool)
+        }
 
-	/**
-	 * Set a node that can be pressed and dragged to move the application around.
-	 * @param node the node.
-	 */
-	public void setMoveControl(Node node) {
-		this.controller.setMoveControl(node);
-	}
+    /**
+     * The constructor.
+     *
+     * @param stage your stage.
+     * @param stageStyle **Undecorated** and **Transparent** StageStyles are accepted or else the Transparent StageStyle will be set.
+     * @param sceneRoot The root of the Scene
+     */
+    init {
+        // Set Scene root
+        setRoot(root.view)
+        setContent(sceneRoot)
 
-	/**
-	 *  Toggle to maximise the application.
-	 */
-	public void maximise() {
-		controller.maximise();
-	}
+        // Initialize the Controller
+        root.viewModel.createTransparentWindow(stage)
 
-	/**
-	 * Minimise the application to the taskbar.
-	 */
-	public void minimise() {
-		controller.minimise();
-	}
-	
-	/**
-	 * Disable/enable the resizing of your application. Enabled by default.
-	 * @param bool false to disable, true to enable.
-	 */
-	public void setResizable(Boolean bool) {
-		controller.setResizable(bool);
-	}
-	
-	/**
-	 * Check the maximised state of the application.
-	 * @return true if the window is maximised.
-	 */
-	public Boolean isMaximised() {
-		return controller.maximised;
-	}
-	
-	/**
-	 * Returns the width and height of the application when windowed.
-	 * @return instance of Delta class. Delta.x = width, Delta.y = height.
-	 */
-	public Delta getWindowedSize() {
-		if (controller.prevSize.x == null)
-			controller.prevSize.x = primaryStage.getWidth();
-		if (controller.prevSize.y == null)
-			controller.prevSize.y = primaryStage.getHeight();
-		return controller.prevSize;
-	}
-	
-	/**
-	 * Returns the x and y position of the application when windowed.
-	 * @return instance of Delta class. Use Delta.x and Delta.y.
-	 */
-	public Delta getWindowedPositon() {
-		if (controller.prevPos.x == null)
-			controller.prevPos.x = primaryStage.getX();
-		if (controller.prevPos.y == null)
-			controller.prevPos.y = primaryStage.getY();
-		return controller.prevPos;
-	}
+        // StageStyle
+        stage.initStyle(stageStyle)
+        if (stageStyle == StageStyle.UTILITY) {
+            isSnapEnabled = false
+            isResizable = false
+        }
+    }
+
+    /**
+     * Change the content of the scene.
+     *
+     * @param content the root Parent of your new content.
+     */
+    private fun setContent(content: Parent?) {
+        root.codeBehind.rootView.children.add(0, content)
+
+        AnchorPane.setLeftAnchor(content, 0.0)
+        AnchorPane.setTopAnchor(content, 0.0)
+        AnchorPane.setRightAnchor(content, 0.0)
+        AnchorPane.setBottomAnchor(content, 0.0)
+    }
+
+    /**
+     * Set a node that can be pressed and dragged to move the application around.
+     *
+     * @param node the node.
+     */
+    fun setMoveControl(node: Node) {
+        root.viewModel.setMoveControl(node)
+    }
+
+    /**
+     * Toggle to maximize the application.
+     */
+    fun maximizeStage() {
+        root.viewModel.maximize()
+    }
+
+    /**
+     * Minimize the stage to the taskbar.
+     */
+    fun minimizeStage() {
+        root.viewModel.minimize()
+    }
+
+    /**
+     * Maximized property.
+     *
+     * @return Maximized property
+     */
+    fun maximizedProperty(): BooleanProperty {
+        return root.viewModel.maximized
+    }
+
+    /**
+     * Resizable property.
+     *
+     * @return Resizable property
+     */
+    fun resizableProperty(): BooleanProperty {
+        return root.viewModel.resizable
+    }
+
+    /**
+     * Aero Snap property.
+     *
+     * @return Aero Snap property
+     */
+    fun snapProperty(): BooleanProperty {
+        return root.viewModel.snap
+    }
+
+    /**
+     * Returns the width and height of the application when windowed.
+     *
+     * @return instance of Delta class. Delta.x = width, Delta.y = height.
+     */
+    val windowedSize: Delta
+        get() {
+            if (root.viewModel.prevSize.x == null) root.viewModel.prevSize.x = stage.width
+            if (root.viewModel.prevSize.y == null) root.viewModel.prevSize.y = stage.height
+            return root.viewModel.prevSize
+        }
+
+    /**
+     * Returns the x and y position of the application when windowed.
+     *
+     * @return instance of Delta class. Use Delta.x and Delta.y.
+     */
+    val windowedPositon: Delta
+        get() {
+            if (root.viewModel.prevPos.x == null) root.viewModel.prevPos.x = stage.x
+            if (root.viewModel.prevPos.y == null) root.viewModel.prevPos.y = stage.y
+            return root.viewModel.prevPos
+        }
+
+    /**
+     * Removes the default css style of the corners
+     */
+    fun removeDefaultCSS() {
+        this.root.view.stylesheets.removeAt(0)
+    }
+
+    /**
+     * The transparent window which allows the library to have aerosnap controls can be styled using this method .
+     * It is nothing more than a StackPane in a transparent window , so for example you can change it's background color , borders , everything through this method :)
+     *
+     * @param style The style of the transparent window of the application
+     */
+    fun setTransparentWindowStyle(style: String?) {
+        root.viewModel.transparentWindow.style = ""
+        root.viewModel.transparentWindow.style = style
+    }
 }

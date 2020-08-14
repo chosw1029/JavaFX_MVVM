@@ -1,5 +1,12 @@
-# JavaFX_MVVM
+# JavaFX_MVVM   
 
-# Library
-> Icon Libarary ( www.icons8.com)
-> mvvmFX ( https://github.com/sialcasa/mvvmFX )
+- mvvmfx-cdi
+- coroutine
+- Undecorated window
+- Drag and Move
+- Minimize, Maximize and Restore Button
+- Right Bottom Notification
+
+### Library
+> Icon Image Resources ( www.icons8.com)   
+mvvmFX ( https://github.com/sialcasa/mvvmFX )
