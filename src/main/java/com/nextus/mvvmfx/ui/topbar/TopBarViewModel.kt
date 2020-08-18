@@ -9,19 +9,12 @@ import javafx.scene.image.Image
 
 class TopBarViewModel : BaseViewModel() {
 
-    val restoreImage: ObjectProperty<Image> = SimpleObjectProperty(Image(javaClass.getResourceAsStream("/images/restore.png")))
+    val restoreImage: ObjectProperty<Image> = SimpleObjectProperty(Image(javaClass.getResourceAsStream("/images/maximize.png")))
 
     @InjectScope lateinit var screenScope: ScreenScope
 
     override fun initialize() {
-        screenScope.maximizeProperty.addListener { _, _, newValue ->
-            if (newValue)
-                restoreImage.set(Image(javaClass.getResourceAsStream("/images/restore.png")))
-            else
-                restoreImage.set(Image(javaClass.getResourceAsStream("/images/maximize.png")))
-        }
-
-        screenScope.fullScreenProperty.addListener { _, _, newValue ->
+        screenScope.maximizeIconProperty.addListener { _, _, newValue ->
             if (newValue)
                 restoreImage.set(Image(javaClass.getResourceAsStream("/images/restore.png")))
             else

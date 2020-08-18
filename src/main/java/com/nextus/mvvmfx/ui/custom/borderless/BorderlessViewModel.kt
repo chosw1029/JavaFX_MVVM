@@ -1,12 +1,10 @@
 package com.nextus.mvvmfx.ui.custom.borderless
 
-import com.nextus.mvvmfx.scope.FxScope
 import com.nextus.mvvmfx.scope.ScreenScope
 import com.nextus.mvvmfx.ui.base.BaseViewModel
 import com.nextus.mvvmfx.ui.custom.Delta
 import com.nextus.mvvmfx.ui.custom.TransparentWindow
 import de.saxsys.mvvmfx.InjectScope
-import de.saxsys.mvvmfx.ScopeProvider
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.event.EventHandler
 import javafx.geometry.Rectangle2D
@@ -16,7 +14,6 @@ import javafx.scene.input.MouseEvent
 import javafx.scene.layout.Pane
 import javafx.stage.Screen
 import javafx.stage.Stage
-import kotlin.math.max
 
 class BorderlessViewModel : BaseViewModel() {
 
@@ -25,7 +22,7 @@ class BorderlessViewModel : BaseViewModel() {
 
     val snap = SimpleBooleanProperty(true)
     val maximized = SimpleBooleanProperty(false)
-    val resizable = SimpleBooleanProperty(false)
+    val resizable = SimpleBooleanProperty(true)
 
     /** The snapped.  */
     private var snapped = false
@@ -44,7 +41,10 @@ class BorderlessViewModel : BaseViewModel() {
     lateinit var transparentWindow: TransparentWindow
 
     override fun initialize() {
-        screenScope.maximizeProperty.bindBidirectional(maximized)
+        screenScope.maximizeIconProperty.bindBidirectional(maximized)
+        screenScope.maximizeProperty.addListener { _, _, _ ->
+            maximize()
+        }
     }
 
     /**

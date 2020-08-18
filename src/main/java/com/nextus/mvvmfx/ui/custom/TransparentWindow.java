@@ -1,6 +1,3 @@
-/**
- * OOUUUUUUUUU PARTYYYYYYYYYYYYYYYYYYYYY!
- */
 package com.nextus.mvvmfx.ui.custom;
 
 import javafx.fxml.FXML;
@@ -48,7 +45,7 @@ public class TransparentWindow extends StackPane {
 	 */
 	public TransparentWindow() {
 		
-		// ------------------------------------FXMLLOADER
+		// ------------------------------------FXML LOADER
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/TransparentWindow.fxml"));
 		loader.setController(this);
 		loader.setRoot(this);

@@ -5,12 +5,9 @@ import javafx.beans.property.SimpleBooleanProperty
 
 class ScreenScope : Scope {
 
-    val fullScreenProperty = SimpleBooleanProperty(true)
-    val maximizeProperty = SimpleBooleanProperty(true)
-
-    fun isFullScreen(): Boolean {
-        return fullScreenProperty.get()
-    }
+    val maximizeIconProperty = SimpleBooleanProperty(false)
+    val maximizeProperty = SimpleBooleanProperty(false)
 
     fun isMaximizeScreen(): Boolean = maximizeProperty.get()
+    fun isMaximizeIcon(): Boolean = maximizeIconProperty.get()
 }

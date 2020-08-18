@@ -3,9 +3,7 @@ package com.nextus.mvvmfx.ui.custom
 import com.nextus.mvvmfx.scope.FxScope
 import com.nextus.mvvmfx.scope.ScreenScope
 import com.nextus.mvvmfx.ui.custom.borderless.BorderlessView
-import com.nextus.mvvmfx.ui.custom.borderless.BorderlessViewModel
 import de.saxsys.mvvmfx.FluentViewLoader
-import de.saxsys.mvvmfx.ViewTuple
 import javafx.beans.property.BooleanProperty
 import javafx.scene.Node
 import javafx.scene.Parent
@@ -14,7 +12,6 @@ import javafx.scene.layout.AnchorPane
 import javafx.scene.layout.Pane
 import javafx.stage.Stage
 import javafx.stage.StageStyle
-import java.io.IOException
 
 /**
  * Undecorated JavaFX Scene with implemented move, resize, minimize, maximize and Aero Snap.
